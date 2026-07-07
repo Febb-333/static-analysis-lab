@@ -8,3 +8,7 @@ Repo ini dibuat untuk tujuan edukasi mata kuliah Keamanan Siber — UNIVERSITAS 
 ## Struktur Utama Portofolio
 - `/docs` : Berkas writeup komprehensif berformat Markdown.
 - `/images` : Dokumentasi grafis orisinal disertai anotasi analitis.
+
+## Daftar Laporan Analisis
+1. [Laporan Analisis Malware XMRig Cryptojacking (Linux ELF)](docs/Laporan_XMRig.md)
+2. [Laporan Analisis Triage File EICAR (DOS/COM)](docs/Analisis_EICAR.md)
