@@ -20,3 +20,25 @@ Adapun tujuan yang ingin dicapai dari pelaksanaan praktikum dan penulisan lapora
 1. **Mengidentifikasi struktur file:** Memetakan format, arsitektur, dan metadata penyusun file executable target.
 2. **Melakukan analisis statis:** Membedah payload biner menggunakan metode rekayasa balik (reverse engineering) untuk mengekstraksi teks tersembunyi (strings), fungsi sistem yang dipanggil, serta identitas program tanpa harus mengeksekusinya.
 3. **Menentukan perilaku program:** Mengobservasi dampak, konsumsi sumber daya, dan aktivitas jaringan yang dihasilkan oleh program saat dijalankan dalam lingkungan sistem operasi yang terisolasi.
+
+
+
+## BAB II: DASAR TEORI
+
+### 2.1 Reverse Engineering (Rekayasa Balik)
+Merupakan metode analitis untuk membedah dan mendekonstruksi sebuah perangkat lunak atau file executable (biner) yang telah dikompilasi. Tujuannya adalah untuk memahami arsitektur internal, algoritma, serta alur instruksi pemrograman tanpa membutuhkan ketersediaan kode sumber (source code) aslinya. Pada ranah keamanan siber, pendekatan ini amat krusial untuk membongkar anatomi ancaman malware, menemukan Indikator Kompromi (IoC) seperti alamat server Command and Control (C2) atau strings tersembunyi, serta menganalisis taktik penyerangan.
+
+### 2.2 Struktur Executable and Linkable Format (ELF)
+Adalah standar format file biner utama yang digunakan oleh sistem operasi berbasis Unix dan Linux. Struktur ELF berfungsi sebagai cetak biru yang memandu kernel sistem operasi dalam memuat program ke dalam memori komputer. Secara arsitektural, file ELF tersusun atas beberapa komponen kunci:
+- **ELF Header:** Terletak di posisi paling awal (offset 0). Selalu diawali dengan Magic Number `0x7F 'E' 'L' 'F'`. Memuat informasi arsitektur target, endianness, dan menentukan Entry Point.
+- **Program Header Table (Segments):** Mendeskripsikan segmen-segmen memori untuk memetakan file biner ke dalam memori virtual saat proses eksekusi (runtime).
+- **Section Header Table & Sections:** - `.text`: Area yang menampung instruksi kode program utama (executable code).
+  - `.data`: Menyimpan variabel global/statis yang telah diinisialisasi.
+  - `.rodata`: Berisi data konstan (Read-Only) seperti teks karakter (strings) statis.
+  - `.bss`: Area khusus untuk variabel global/statis yang belum diinisialisasi.
+
+### 2.3 Tools yang Digunakan
+1. **Ghidra:** Aplikasi reverse engineering buatan NSA untuk membedah file ELF dan melakukan dekompilasi statis ke bahasa C.
+2. **Oracle VM VirtualBox:** Hypervisor untuk membangun Virtual Machine (VM) sebagai ruang isolasi (sandbox).
+3. **htop / top:** Utilitas terminal Linux untuk memantau konsumsi sumber daya CPU secara real-time.
+4. **MalwareBazaar:** Portal repositori threat intelligence untuk mengunduh sampel malware.
