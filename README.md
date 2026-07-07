@@ -12,3 +12,5 @@ Repo ini dibuat untuk tujuan edukasi mata kuliah Keamanan Siber — UNIVERSITAS 
 ## Daftar Laporan Analisis
 1. [Laporan Analisis Malware XMRig Cryptojacking (Linux ELF)](docs/Laporan_XMRig.md)
 2. [Laporan Analisis Triage File EICAR (DOS/COM)](docs/Analisis_EICAR.md)
+
+*Terakhir diperbaharui: Penyelesaian dokumentasi analisis statis dan dinamis.*
