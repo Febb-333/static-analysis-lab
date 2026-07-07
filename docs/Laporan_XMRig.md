@@ -42,3 +42,24 @@ Adalah standar format file biner utama yang digunakan oleh sistem operasi berbas
 2. **Oracle VM VirtualBox:** Hypervisor untuk membangun Virtual Machine (VM) sebagai ruang isolasi (sandbox).
 3. **htop / top:** Utilitas terminal Linux untuk memantau konsumsi sumber daya CPU secara real-time.
 4. **MalwareBazaar:** Portal repositori threat intelligence untuk mengunduh sampel malware.
+
+
+
+## BAB III: METODOLOGI
+
+### 3.1 Objek Analisis
+Objek utama analisis ini adalah file executable biner Linux yang diperoleh secara legal dari repositori MalwareBazaar (abuse.ch).
+- **Nama File Asli:** y11
+- **Nama File Biner:** `b20f39fc00d242e706b6c30367ad811c676e0575050a4ec2f30104b696944b49.elf`
+- **Ukuran File:** 8.350.992 bytes (Sekitar 8.35 MB)
+- **Format Eksekusi:** Executable and Linkable Format (ELF) 64-bit LSB
+- **Nilai Hash SHA-256:** `b20f39fc00d242e706b6c30367ad811c676e0575050a4ec2f30104b696944b49`
+- **Signature:** Terdeteksi terafiliasi dengan varian Mirai / XMRig.
+
+### 3.2 Metode Analisis
+Metode yang digunakan adalah pendekatan hibrida (Analisis Statis dan Dinamis):
+1. **Identifikasi File & Lingkungan Isolasi:** Analisis dilakukan di VM Ubuntu dengan adaptor jaringan dinonaktifkan secara total (disconnected).
+2. **Analisis Header:** Memuat file ke platform Ghidra dan melakukan validasi Import Results Summary. Biner diketahui berstatus *stripped*.
+3. **Ekstraksi String:** Pencarian hardcoded strings untuk menemukan Indikator Kompromi (IoC).
+4. **Analisis Import & Fungsi:** Menggunakan decompiler untuk mengkonversi instruksi Assembly menjadi pseudokode bahasa C.
+5. **Analisis Dinamis:** Memberikan izin eksekusi (`chmod +x`), menjalankan biner, dan memantau dampaknya pada utilisasi hardware sistem.
