@@ -92,3 +92,24 @@ Karena biner bersifat *stripped*, fungsi asli disembunyikan. Namun, teridentifik
 - **Lonjakan CPU:** Biner memicu lonjakan penggunaan CPU hingga mendekati 100% pada utilitas `htop`.
 - **Koneksi Jaringan Persisten:** Biner terus mencoba membuka port komunikasi dan menghasilkan log `connect error: "connection refused"` akibat ketiadaan akses internet.
 - **Deteksi Hardware:** Program secara mandiri mendeteksi arsitektur CPU target (contoh: Intel Core i7-4600M).
+
+
+
+## BAB V: PENUTUP
+
+### 5.1 Kesimpulan
+1. **Identifikasi Objek:** File target adalah executable Linux (ELF 64-bit) berjenis stripped binary, dikompilasi menggunakan GCC.
+2. **Hasil Analisis Statis:** Biner ini adalah engine penambang kripto XMRig v6.26.0 yang menggunakan algoritma CryptoNight/RandomX dan protokol komunikasi Stratum.
+3. **Hasil Analisis Dinamis:** Eksekusi biner secara langsung memicu lonjakan utilisasi CPU ekstrem dan upaya komunikasi jaringan yang persisten.
+4. **Klasifikasi Akhir:** Biner diklasifikasikan secara mutlak sebagai Malware Cryptojacking.
+
+### 5.2 Saran
+1. Menggunakan simulator jaringan (seperti INetSim) dan Wireshark di dalam ruang isolasi untuk menangkap alamat IP C2 Server.
+2. Menggunakan debugger dinamis (seperti GDB) pada lingkungan lab untuk menelusuri taktik anti-analysis.
+
+---
+### DAFTAR PUSTAKA
+- Abuse.ch. (2026). *MalwareBazaar Database*.
+- Dang, B., Gazet, A., & Bachaalany, E. (2014). *Practical Reverse Engineering: x86, x64, ARM, Windows Kernel*. John Wiley & Sons.
+- Sikorski, M., & Honig, A. (2012). *Practical Malware Analysis: The Hands-On Guide*. No Starch Press.
+- XMRig. (n.d.). *XMRig CPU/GPU Miner Documentation*.
