@@ -63,3 +63,32 @@ Metode yang digunakan adalah pendekatan hibrida (Analisis Statis dan Dinamis):
 3. **Ekstraksi String:** Pencarian hardcoded strings untuk menemukan Indikator Kompromi (IoC).
 4. **Analisis Import & Fungsi:** Menggunakan decompiler untuk mengkonversi instruksi Assembly menjadi pseudokode bahasa C.
 5. **Analisis Dinamis:** Memberikan izin eksekusi (`chmod +x`), menjalankan biner, dan memantau dampaknya pada utilisasi hardware sistem.
+
+
+
+## BAB IV: HASIL DAN PEMBAHASAN
+
+### 4.1 Informasi Dasar File
+Hasil pemuatan (import) metadata di Ghidra:
+- **Tipe File:** ELF 64-bit LSB (Executable).
+- **Arsitektur:** x86-64 (AMD64).
+- **Compiler:** GCC versi 13.2.1 (Alpine Linux).
+- **Kondisi File:** Stripped Binary.
+
+### 4.2 Analisis Struktur ELF
+- **ELF Header:** Diawali dengan Magic Number `7F 45 4C 46` (`\x7f ELF`).
+- **Section Table:** Melalui fitur Program Trees di Ghidra, teridentifikasi section `.text` (berisi algoritma hashing padat), `.rodata` (menyimpan strings statis koin kripto), serta `.data` dan `.bss`.
+
+### 4.3 Analisis Strings
+Ekstraksi strings krusial dari section `.rodata`:
+1. **`XMRIG_VERSION` / `XMRig/6.26.0`**: Konfirmasi bahwa biner adalah engine penambang kripto sumber terbuka XMRig v6.26.0.
+2. **`cryptonight/v8` & `rx/0` (RandomX)**: Indikator algoritma hashing yang dirancang khusus untuk mengeksploitasi prosesor (CPU).
+3. **`mining.authorize`**: Perintah protokol Stratum, membuktikan biner dirancang untuk terkoneksi ke Mining Pool.
+
+### 4.4 Analisis Import & Library
+Karena biner bersifat *stripped*, fungsi asli disembunyikan. Namun, teridentifikasi penggunaan library internal `libuv` (manajemen jaringan asynchronous), `OpenSSL` (komunikasi terenkripsi), dan `hwloc` (deteksi topologi hardware). Biner juga aktif memanggil instruksi `AES-NI`.
+
+### 4.5 Analisis Dinamis
+- **Lonjakan CPU:** Biner memicu lonjakan penggunaan CPU hingga mendekati 100% pada utilitas `htop`.
+- **Koneksi Jaringan Persisten:** Biner terus mencoba membuka port komunikasi dan menghasilkan log `connect error: "connection refused"` akibat ketiadaan akses internet.
+- **Deteksi Hardware:** Program secara mandiri mendeteksi arsitektur CPU target (contoh: Intel Core i7-4600M).
